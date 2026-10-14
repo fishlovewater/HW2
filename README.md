@@ -207,21 +207,28 @@ python -m http.server 8099        # 以 http:// 開啟（不可直接雙擊 html
 ```
 
 ### 8.3 部署到 Vercel
-最簡單用 CLI：
+
+網站為純靜態 HTML/CSS/JavaScript，直接部署 `web/` 即可，不需建置、後端或 Python runtime。已有的 `web/data/results.json` 與 `web/images/` 可直接使用。
+
+於專案根目錄執行：
+
 ```bash
-npm i -g vercel
+npx vercel@latest login
 cd web
-vercel          # Framework 選 Other；Root 為目前 web/ 目錄
-vercel --prod   # 正式部署，取得公開網址
+npx vercel@latest --prod
 ```
-或用 GitHub 連動：到 vercel.com 匯入 repo，**Root Directory 設為 `web`**，
-Framework 選 **Other**，Build/Output 留空即可。詳見 `web/README.md`。
 
-> 網站為純靜態（HTML/CSS/JS + JSON），不需後端或 Python runtime，
-> 因此在 Vercel 免費方案即可穩定運行、載入快速。
+首次部署時選擇 Vercel 帳號／團隊，建立或連結專案；Framework 使用 **Other**，網站目錄使用目前的 `web/`，不設定 Build Command。後續更新於 `web/` 執行 `npx vercel@latest --prod` 即可。CLI 的 `--prod` 會部署至正式環境：[官方部署說明](https://vercel.com/docs/cli/deploy)。
 
-### 8.4 部署後請補上連結
-部署完成後，將 Vercel 公開網址填入此處：
+也可以在 Vercel 匯入 [GitHub repository](https://github.com/fishlovewater/HW2)，將 **Root Directory 設為 `web`**、Framework 設為 **Other**，Build Command 留空、Output Directory 使用預設值。設定 Git 整合後，正式分支的新提交可觸發自動部署。
 
-- 🌐 線上 Demo：`https://<your-project>.vercel.app`
-- （選填）GitHub repo：`https://github.com/<you>/<repo>`
+`web/vercel.json` 啟用 clean URLs，並要求瀏覽器重新驗證 JSON 資料快取。Vercel CLI 產生的 `.vercel/` 包含專案連結資訊，已由 `.gitignore` 排除。
+
+### 8.4 專案連結與部署驗證
+
+- GitHub：[fishlovewater/HW2](https://github.com/fishlovewater/HW2)
+- 線上 Demo：[https://web-phi-ecru-34.vercel.app](https://web-phi-ecru-34.vercel.app)
+
+部署後確認首頁、`/data/results.json` 與 `/images/01_target_distribution.png` 均可讀取，且儀表板圖表及指標正常顯示。
+
+模型或資料更新時，先於專案根目錄執行 `python 7114056032_hw2.py`，再重新部署 `web/`。網站呈現的是 Python 產生的分析結果，瀏覽網頁時不會重新訓練模型。

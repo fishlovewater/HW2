@@ -36,28 +36,36 @@ python 7114056032_hw2.py
 
 ## 部署到 Vercel
 
-本資料夾即為網站根目錄。三種方式擇一：
+本資料夾即為網站根目錄，不需要安裝前端依賴或執行建置。
 
-### 方法 A：Vercel CLI（最快）
+### Vercel CLI
+
+於專案根目錄執行：
+
 ```bash
-npm i -g vercel
+npx vercel@latest login
 cd web
-vercel          # 第一次會問設定，Framework 選 "Other"，Root 使用目前目錄
-vercel --prod   # 正式部署
+npx vercel@latest --prod
 ```
 
-### 方法 B：GitHub + Vercel 網站
-1. 將整個專案推上 GitHub。
-2. 到 <https://vercel.com> → New Project → 匯入該 repo。
-3. **Root Directory** 設為 `web`。
-4. Framework Preset 選 **Other**（這是純靜態網站，無需 build）。
-5. Build Command 留空，Output Directory 留空（直接服務 `web/`）。
-6. Deploy，完成後即取得公開網址。
+第一次部署時選擇帳號／團隊並建立或連結專案，Framework 選 **Other**，目錄使用目前位置，不設定 Build Command。後續於 `web/` 執行 `npx vercel@latest --prod` 即可更新正式網站。詳見 [Vercel CLI 部署文件](https://vercel.com/docs/cli/deploy)。
 
-### 方法 C：直接拖拉
-到 Vercel 後台用 "Deploy" 把 `web/` 資料夾拖進去即可。
+### GitHub 整合
 
-## 說明
+1. 在 Vercel 匯入 [fishlovewater/HW2](https://github.com/fishlovewater/HW2)。
+2. **Root Directory** 設為 `web`。
+3. Framework Preset 選 **Other**，Build Command 留空，Output Directory 使用預設值。
+4. 部署完成後，將實際正式網址記錄於本文件及專案根目錄 README。
 
-- 若 `data/results.json` 不存在，頁面會顯示提示，請先跑一次主程式。
-- `app.js` 以相對路徑 `./data/...`、`./images/...` 讀檔，確保在 Vercel 子路徑下也能運作。
+## 專案連結
+
+- 原始碼：[fishlovewater/HW2](https://github.com/fishlovewater/HW2)
+- 線上 Demo：[https://web-phi-ecru-34.vercel.app](https://web-phi-ecru-34.vercel.app)
+
+## 部署驗證與更新
+
+- 確認首頁、`/data/results.json` 及 `/images/01_target_distribution.png` 可讀取，圖表及模型指標正常顯示。
+- 修改模型或資料後，先在專案根目錄執行 Python 主程式，再於 `web/` 重新部署。
+- 網站載入預先產生的分析結果，瀏覽時不會執行 Python 或重新訓練模型。
+- `vercel.json` 設定 clean URLs 與 JSON 快取重新驗證；`.vercel/` 專案連結資訊已被 `.gitignore` 排除。
+- 若 `data/results.json` 不存在，請先執行主程式。
