@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# Submission archive (regenerated from source)
+7114056032_hw2.zip
+
+# Temp / logs
+*.log
+_*.py
+_*.ps1
+_status.txt
+run_output.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.vercel/

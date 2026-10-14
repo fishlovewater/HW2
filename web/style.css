@@ -1,0 +1,136 @@
+:root {
+  --wine: #7b1e2b;
+  --wine-light: #a83246;
+  --bg: #faf7f5;
+  --panel: #ffffff;
+  --ink: #2a2024;
+  --muted: #8a7f84;
+  --line: #ece3e0;
+  --accent: #c6803f;
+  --good: #4c9a6a;
+  --radius: 16px;
+  --shadow: 0 6px 24px rgba(74, 30, 40, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+/* Hero */
+.hero {
+  background: radial-gradient(1200px 400px at 20% -10%, #a83246 0%, #7b1e2b 55%, #5c1420 100%);
+  color: #fff;
+  padding: 64px 24px 72px;
+}
+.hero-inner { max-width: 1080px; margin: 0 auto; }
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 12px;
+  opacity: 0.8;
+  margin: 0 0 8px;
+}
+.hero h1 { font-size: clamp(28px, 5vw, 46px); margin: 0 0 14px; }
+.subtitle { max-width: 720px; font-size: 17px; opacity: 0.92; margin: 0 0 20px; }
+.source-pill {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  backdrop-filter: blur(4px);
+}
+
+/* Layout */
+.container { max-width: 1080px; margin: -36px auto 0; padding: 0 24px 64px; }
+
+/* KPI cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.card {
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+}
+.card .label { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+.card .value { font-size: 28px; font-weight: 700; color: var(--wine); }
+.card .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+/* Panels */
+.panel {
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 26px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  margin-bottom: 24px;
+}
+.panel h2 { margin: 0 0 6px; font-size: 21px; color: var(--wine); }
+.panel-desc { margin: 0 0 18px; color: var(--muted); font-size: 15px; }
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+.chart-box { position: relative; height: 320px; }
+.chart-box.tall { height: 420px; }
+
+/* Chips */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.chip {
+  background: #f3e7e4;
+  color: var(--wine);
+  border: 1px solid #e4cfca;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Table */
+.table-wrap { overflow-x: auto; margin-top: 20px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--line); }
+th:first-child, td:first-child { text-align: left; }
+thead th { color: var(--muted); font-weight: 600; background: #faf4f2; }
+tr.best { background: #eef7f1; }
+tr.best td:first-child::after { content: " ★"; color: var(--good); }
+
+/* Demo */
+.demo { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+.demo .d {
+  background: #faf4f2; border: 1px solid var(--line);
+  border-radius: 12px; padding: 12px; text-align: center;
+}
+.demo .d .a { font-size: 12px; color: var(--muted); }
+.demo .d .p { font-size: 22px; font-weight: 700; color: var(--wine); }
+
+/* Gallery */
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.gallery figure { margin: 0; background: #faf4f2; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.gallery img { width: 100%; display: block; }
+.gallery figcaption { padding: 8px 12px; font-size: 13px; color: var(--muted); }
+
+/* Footer */
+.footer { text-align: center; padding: 32px 24px 56px; color: var(--muted); font-size: 14px; }
+.footer .muted { font-size: 12px; opacity: 0.8; }
+
+/* Error */
+.error-banner {
+  background: #fde8e8; color: #a01919; border: 1px solid #f5bcbc;
+  padding: 16px; border-radius: 12px; margin-bottom: 20px;
+}

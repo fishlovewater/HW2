@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>紅酒品質 — 多元線性回歸儀表板 | CRISP-DM</title>
+  <meta name="description" content="Red Wine Quality Multiple Linear Regression dashboard following CRISP-DM, deployed on Vercel." />
+  <link rel="stylesheet" href="./style.css" />
+  <!-- Chart.js (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">CRISP-DM · Multiple Linear Regression</p>
+      <h1>🍷 紅酒品質預測儀表板</h1>
+      <p class="subtitle">
+        以 11 項理化特徵，用線性回歸預測紅酒品質分數。資料自網路即時擷取，
+        完整走過 Business → Data → Preparation → Modeling → Evaluation → Deployment。
+      </p>
+      <div class="source-pill" id="sourcePill">資料來源載入中…</div>
+    </div>
+  </header>
+
+  <main class="container" id="app">
+    <!-- KPI cards -->
+    <section class="cards" id="kpiCards"></section>
+
+    <!-- Business + Data understanding -->
+    <section class="panel">
+      <h2>1–2. 商業理解與資料理解</h2>
+      <p class="panel-desc">
+        目標：由理化檢測客觀預測品質分數，取代昂貴主觀的人工品評。
+        下方顯示品質分數分佈，以及各特徵與品質的相關性。
+      </p>
+      <div class="grid-2">
+        <div class="chart-box"><canvas id="distChart"></canvas></div>
+        <div class="chart-box"><canvas id="corrChart"></canvas></div>
+      </div>
+    </section>
+
+    <!-- Feature selection -->
+    <section class="panel">
+      <h2>3. 特徵選擇 (Feature Selection)</h2>
+      <p class="panel-desc">
+        三法並用取共識：SelectKBest（F 檢定）、RFE、LassoCV。下圖為 SelectKBest F-score。
+      </p>
+      <div class="chart-box tall"><canvas id="fsChart"></canvas></div>
+      <div class="chips" id="consensusChips"></div>
+    </section>
+
+    <!-- Modeling + evaluation -->
+    <section class="panel">
+      <h2>4–5. 建模與評估 (Modeling &amp; Evaluation)</h2>
+      <p class="panel-desc">比較五個模型的 R² 與 RMSE，並列出完整指標表。</p>
+      <div class="grid-2">
+        <div class="chart-box"><canvas id="r2Chart"></canvas></div>
+        <div class="chart-box"><canvas id="rmseChart"></canvas></div>
+      </div>
+      <div class="table-wrap">
+        <table id="metricsTable">
+          <thead>
+            <tr><th>Model</th><th>n_feat</th><th>MAE</th><th>MSE</th><th>RMSE</th><th>R²</th><th>Adj R²</th><th>CV R²</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Actual vs predicted -->
+    <section class="panel">
+      <h2>實際 vs 預測 (Actual vs Predicted Profit → Quality)</h2>
+      <p class="panel-desc">
+        仿 50-Startups 的「Actual vs Predicted」散佈圖；此處目標為紅酒品質。
+        紅色虛線為完美預測線。
+      </p>
+      <div class="chart-box tall"><canvas id="avpChart"></canvas></div>
+    </section>
+
+    <!-- Prediction interval -->
+    <section class="panel">
+      <h2>預測圖 + 95% 信賴 / 預測區間</h2>
+      <p class="panel-desc">
+        OLS 擬合 quality ~ alcohol。深色窄帶為 95% 信賴區間（平均值），
+        淺色寬帶為 95% 預測區間（個別觀測）。
+      </p>
+      <div class="chart-box tall"><canvas id="piChart"></canvas></div>
+    </section>
+
+    <!-- Coefficients -->
+    <section class="panel">
+      <h2>6. 部署解讀 — 標準化係數</h2>
+      <p class="panel-desc">各特徵對品質的影響方向與強度（標準化後可直接比較）。</p>
+      <div class="chart-box tall"><canvas id="coefChart"></canvas></div>
+      <div class="demo" id="demoBox"></div>
+    </section>
+
+    <!-- Static figures gallery -->
+    <section class="panel">
+      <h2>Matplotlib 圖庫（Python 產出）</h2>
+      <p class="panel-desc">主程式產生的高解析度圖檔。</p>
+      <div class="gallery" id="gallery"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>學號 7114056032 · AIoT HW2 · 以 Chart.js 視覺化，部署於 Vercel</p>
+    <p class="muted">資料集：Red Wine Quality (Cortez et al., 2009) · UCI / Kaggle</p>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
